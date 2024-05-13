@@ -217,14 +217,11 @@ document.addEventListener('DOMContentLoaded', function () {
       let birthDate = document.getElementById('birth_date').value;
       let username = document.getElementById('user_name').value;
       let email = document.getElementById('email').value;
-      let password = document.getElementById('password').value;
-      let confirmPassword = document.getElementById('confirm_password').value;
     
       // Regular expression 
       let nameRegex = /^[a-zA-Z]{2,}$/;
       let userRegex = /^[a-zA-Z0-9]{3,}$/;
       let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/;
     
       // Birth date validation 
       let today = new Date();
@@ -254,16 +251,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
       if(!emailRegex.test(email)) {
         toastr["error"]("Please enter a valid email address", "Error");
-        return false;
-      }
-    
-      if(!passwordRegex.test(password)) {
-        toastr["error"]("Password must be between 6 and 20 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character!", "Error");
-        return false;
-      }
-    
-      if(confirmPassword !== password) {
-        toastr["error"] ("Passwords do not match!", "Error");
         return false;
       }
     
@@ -314,6 +301,8 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+
+
   // Function to delete a flat
   function deleteFlat(index) {
     let loggedInUser = JSON.parse(localStorage.getItem('logedUser'));
@@ -350,6 +339,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+
+
   // Function to populate the favorites table
   function populateFavoritesTable() {
     let dataUser = JSON.parse(localStorage.getItem('logedUser'));
@@ -374,7 +366,21 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
       }
     });
-  }
+  };
+
+
+  // Step 1: Retrieve userData from local storage
+let userData = JSON.parse(localStorage.getItem('userData'));
+
+if (userData) {
+    // Step 2: Identify favorite flats
+    let favoriteFlats = userData.flats.filter(flat => flat.favorite);
+
+    // Step 3: Save favorite flats to separate local storage
+    let flatsLocalStorage = JSON.parse(localStorage.getItem('flats')) || [];
+    flatsLocalStorage.favorites = favoriteFlats;
+    localStorage.setItem('flats', JSON.stringify(flatsLocalStorage));
+}
 
 
   // Event listener for clicks on flats table (including delete and favorite buttons)
@@ -389,6 +395,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+
+
+ // Function for inactivity
+
+ let inactivityTime = function () {
+  let time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  function logout() {
+      location.href = 'login.html'
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, (5 * 60 * 1000));
+  }
+};
+
+
+inactivityTime();
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   // Get the table element
