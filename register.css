@@ -80,6 +80,10 @@ h1 {
   font-weight: 600;
 }
 
+.register:hover {
+  background-color: bisque;
+}
+
 h3{
   font-size: 15px;
   margin-top: 20px;
@@ -93,18 +97,7 @@ a {
 
 /* Media Query for smaller screens */
 
-@media (max-width: 500px) {
-  .container {
-    width: 90%; 
-    padding: 20px; 
-  }
-
-  .data {
-    width: 100%; 
-  }
-}
-
-@media (max-width: 390px) {
+@media (max-width: 768px) {
   .container {
     width: 90%; 
     padding: 20px; 

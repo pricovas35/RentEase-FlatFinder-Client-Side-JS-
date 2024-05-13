@@ -82,6 +82,8 @@ img {
   font-size: 14.5px;
   margin: -15px 0 15px;
 }
+
+
 .remember-forgot label input{
   accent-color: #fff;
   margin-right: 3px;
@@ -90,7 +92,7 @@ img {
 .remember-forgot a{
   color: blue;
   text-decoration: none;
-
+  margin-left: 90px;
 }
 .remember-forgot a:hover{
   text-decoration: underline;
@@ -110,6 +112,12 @@ img {
   color: #333;
   font-weight: 600;
 }
+
+.container .btn:hover{
+  background-color: bisque;
+}
+
+
 .container .register-link{
   font-size: 14.5px;
   text-align: center;

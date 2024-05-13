@@ -280,8 +280,6 @@ document.addEventListener('DOMContentLoaded', function () {
         username: username,
         birthDate: birthDate,
         email: email,
-        password: password, 
-        confirmPassword: confirmPassword
       }
     
       storedUsers.push(userData);
@@ -319,6 +317,17 @@ document.addEventListener('DOMContentLoaded', function () {
     populateFlatsTable();
   }
 
+  function myConfirm(index) {
+    let result = confirm("Are you sure you want to delete?")
+    if (result == true) {
+      deleteFlat(index);
+    } else {
+      return false
+    }
+  }
+
+ 
+
 
   // Function to toggle favorite status of a flat
   function toggleFavorite(index) {
@@ -335,9 +344,6 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('userData', JSON.stringify(users));
     populateFavoritesTable();
   }
-
-
-
 
 
 
@@ -369,32 +375,21 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
 
-  // Step 1: Retrieve userData from local storage
-let userData = JSON.parse(localStorage.getItem('userData'));
-
-if (userData) {
-    // Step 2: Identify favorite flats
-    let favoriteFlats = userData.flats.filter(flat => flat.favorite);
-
-    // Step 3: Save favorite flats to separate local storage
-    let flatsLocalStorage = JSON.parse(localStorage.getItem('flats')) || [];
-    flatsLocalStorage.favorites = favoriteFlats;
-    localStorage.setItem('flats', JSON.stringify(flatsLocalStorage));
-}
-
 
   // Event listener for clicks on flats table (including delete and favorite buttons)
   document.addEventListener('click', function (e) {
     let target = e.target;
     if (target.id == ('deleteBtn')) {
       let index = parseInt(target.getAttribute('data-index'));
-      deleteFlat(index);
+      myConfirm(index);
     } else if (target.id == ('favoriteBtn')) {
       let index = parseInt(target.getAttribute('data-index'));
       toggleFavorite(index);
     }
   });
 });
+
+
 
 
 
@@ -413,12 +408,25 @@ if (userData) {
 
   function resetTimer() {
       clearTimeout(time);
-      time = setTimeout(logout, (5 * 60 * 1000));
+      time = setTimeout(logout, (5* 60* 1000));
   }
 };
 
 
 inactivityTime();
+
+
+// Hamburger Menu
+
+const menuToggle = document.getElementById('menu-toggle');
+const menuBtn = document.querySelector('.menu-btn');
+const menu = document.querySelector('.menu');
+
+menuBtn.addEventListener('click', () => {
+  menuToggle.checked = !menuToggle.checked;
+  menu.classList.toggle('active');
+});
+
 
 
 
