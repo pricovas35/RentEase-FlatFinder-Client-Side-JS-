@@ -137,18 +137,7 @@ img {
 
 /* Media Query for smaller screens */
 
-@media (max-width: 500px) {
-  .container {
-    width: 90%; 
-    padding: 20px; 
-  }
-
-  .data {
-    width: 100%; 
-  }
-}
-
-@media (max-width: 390px) {
+@media (max-width: 768px) {
   .container {
     width: 90%; 
     padding: 20px; 

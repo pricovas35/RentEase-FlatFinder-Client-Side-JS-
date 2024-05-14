@@ -210,94 +210,106 @@ document.addEventListener('DOMContentLoaded', function () {
       populateFlatsTable();
     });
 
-    function validateForm() {
+// Function to check if an email address exists in local storage
+function isEmailExists(email) {
+  // Retrieve email addresses from local storage
+  let storedEmails = JSON.parse(localStorage.getItem('userData')) || [];
 
-      let firstName = document.getElementById('first_name').value;
-      let lastName = document.getElementById('last_name').value;
-      let birthDate = document.getElementById('birth_date').value;
-      let username = document.getElementById('user_name').value;
-      let email = document.getElementById('email').value;
-    
-      // Regular expression 
-      let nameRegex = /^[a-zA-Z]{2,}$/;
-      let userRegex = /^[a-zA-Z0-9]{3,}$/;
-      let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-      // Birth date validation 
-      let today = new Date();
-      let minBirthDate = new Date(today.getFullYear() - 120, today.getMonth() - 120, today.getDate());
-      let maxBirthDate = new Date(today.getFullYear() - 18, today.getMonth() - 18, today.getDate());
-      let selectedBirthDate = new Date(birthDate);
-    
-      if (!nameRegex.test(firstName)) {
-        toastr["error"]("First name must be at least 2 characters long and must contain only letters!", "Error");
-        return false;
-      }
-    
-      if (!nameRegex.test(lastName)) {
-        toastr["error"]("Last name must be at least 2 characters long and must contain only letters!", "Error");
-        return false;
-      }
-    
-      if(!userRegex.test(username)) {
-        toastr["error"]("Username must be at least 3 characters long and contain only letters and numbers!", "Error");
-        return false;
-      }
-    
-      if(!(selectedBirthDate >= minBirthDate && selectedBirthDate <= maxBirthDate)) {
-        toastr["error"] ("You must be between 18 and 120 years old to register!", "Error");
-        return false;
-      }
-    
-      if(!emailRegex.test(email)) {
-        toastr["error"]("Please enter a valid email address", "Error");
-        return false;
-      }
-    
-    
-      // Function to check if an email address exists in local storage
-      function isEmailExists(email) {
-        // Retrieve email addresses from local storage
-        let storedEmails = JSON.parse(localStorage.getItem('userData')) || [];
-    
-        // Check if the provided email exists in the stored email addresses
-        return storedEmails.includes(email);
-      }
-    
-        // Example usage
-        let userEmail = "user@example.com";
-        let exists = isEmailExists(userEmail);
-    
-    
-    
-      // Check if user data already exists in local storage
-      let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
-    
-      //Save user data to local storage
-      let userData = {
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        birthDate: birthDate,
-        email: email,
-      }
-    
-      storedUsers.push(userData);
-    
-      localStorage.setItem("userData", JSON.stringify(storedUsers));
-      toastr["success"] ("Updated info successfully!");
-    
-      return true; // Form is valid
-    }
-    
-    // Event listener binding
-    document.addEventListener('DOMContentLoaded', function() {
-      let form = document.querySelector('form');
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        validateForm();
-      });
-    });
+  // Check if the provided email exists in the stored email addresses
+  return storedEmails.includes(email);
+}
+
+function validateForm() {
+  let firstName = document.getElementById('first_name').value;
+  let lastName = document.getElementById('last_name').value;
+  let birthDate = document.getElementById('birth_date').value;
+  let username = document.getElementById('user_name').value;
+  let email = document.getElementById('email').value;
+
+  // Regular expression 
+  let nameRegex = /^[a-zA-Z]{2,}$/;
+  let userRegex = /^[a-zA-Z0-9]{3,}$/;
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Birth date validation 
+  let today = new Date();
+  let minBirthDate = new Date(today.getFullYear() - 120, today.getMonth() - 120, today.getDate());
+  let maxBirthDate = new Date(today.getFullYear() - 18, today.getMonth() - 18, today.getDate());
+  let selectedBirthDate = new Date(birthDate);
+
+  if (!nameRegex.test(firstName)) {
+    toastr["error"]("First name must be at least 2 characters long and must contain only letters!", "Error");
+    return false;
+  }
+
+  if (!nameRegex.test(lastName)) {
+    toastr["error"]("Last name must be at least 2 characters long and must contain only letters!", "Error");
+    return false;
+  }
+
+  if(!userRegex.test(username)) {
+    toastr["error"]("Username must be at least 3 characters long and contain only letters and numbers!", "Error");
+    return false;
+  }
+
+  if(!(selectedBirthDate >= minBirthDate && selectedBirthDate <= maxBirthDate)) {
+    toastr["error"] ("You must be between 18 and 120 years old to register!", "Error");
+    return false;
+  }
+
+  if(!emailRegex.test(email)) {
+    toastr["error"]("Please enter a valid email address", "Error");
+    return false;
+  }
+
+  // Example usage
+  let exists = isEmailExists(email);
+
+  // Check if user data already exists in local storage
+  let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
+
+  // Save user data to local storage
+  let userData = {
+    firstName: firstName,
+    lastName: lastName,
+    username: username,
+    birthDate: birthDate,
+    email: email,
+  }
+
+  // If email exists, update user data; otherwise, save new user data
+  if (exists) {
+    updateUserData(userData);
+  } else {
+    storedUsers.push(userData);
+    localStorage.setItem("userData", JSON.stringify(storedUsers));
+    toastr["success"]("Saved info successfully!");
+  }
+
+  return true; // Form is valid
+}
+
+function updateUserData(userDataToUpdate) {
+  // Retrieve existing user data from local storage
+  let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
+
+  // Find the index of the user data to update
+  let indexToUpdate = storedUsers.findIndex(user => user.email === userDataToUpdate.email);
+
+  if (indexToUpdate !== -1) {
+    // Update the user data
+    storedUsers[indexToUpdate] = userDataToUpdate;
+
+    // Save the updated user data back to local storage
+    localStorage.setItem("userData", JSON.stringify(storedUsers));
+
+    toastr["success"]("Updated info successfully!");
+  } else {
+    // User not found in the stored data
+    toastr["error"]("User data not found!", "Error");
+  }
+}
+
 
 
 
@@ -418,14 +430,58 @@ inactivityTime();
 
 // Hamburger Menu
 
-const menuToggle = document.getElementById('menu-toggle');
-const menuBtn = document.querySelector('.menu-btn');
-const menu = document.querySelector('.menu');
+let menuToggle = document.getElementById('menu-toggle');
+let menuBtn = document.querySelector('.menu-btn');
+let menu = document.querySelector('.menu');
+
 
 menuBtn.addEventListener('click', () => {
   menuToggle.checked = !menuToggle.checked;
   menu.classList.toggle('active');
 });
+
+// Function to close the menu when a menu item is clicked
+let closeMenu = () => {
+  menuToggle.checked = false;
+  menu.classList.remove('active');
+};
+
+// Event listeners for menu items
+addFlatBtn.addEventListener('click', function () {
+  console.log('addFlatBtn clicked');
+  closeMenu(); // Close the menu when "Add Flat" is clicked
+  document.getElementById('addFlat').style.display = 'block';
+  document.getElementById('updateInfo').style.display = 'none';
+  document.getElementById('flatsTable').style.display = 'none';
+  document.getElementById('favTable').style.display = 'none';
+});
+
+seeFlatBtn.addEventListener('click', function () {
+  closeMenu(); // Close the menu when "See Flats" is clicked
+  document.getElementById('addFlat').style.display = 'none';
+  document.getElementById('updateInfo').style.display = 'none';
+  document.getElementById('flatsTable').style.display = 'block';
+  document.getElementById('favTable').style.display = 'none';
+  // populateFlatsTable(); // Populate flats table
+});
+
+updateInfoBtn.addEventListener('click', function () {
+  closeMenu(); // Close the menu when "Update Info" is clicked
+  document.getElementById('addFlat').style.display = 'none';
+  document.getElementById('updateInfo').style.display = 'block';
+  document.getElementById('flatsTable').style.display = 'none';
+  document.getElementById('favTable').style.display = 'none';
+});
+
+favoritesBtn.addEventListener('click', function () {
+  closeMenu(); // Close the menu when "Favorites" is clicked
+  document.getElementById('addFlat').style.display = 'none';
+  document.getElementById('updateInfo').style.display = 'none';
+  document.getElementById('flatsTable').style.display = 'none';
+  document.getElementById('favTable').style.display = 'block';
+});
+
+
 
 
 
