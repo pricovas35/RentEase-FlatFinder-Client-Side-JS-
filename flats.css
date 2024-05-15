@@ -367,7 +367,8 @@ option {
     display: none;
     position: static;
     width: 100%;
-    background-color: #333;
+    background-color: transparent;
+    backdrop-filter: blur(9px);
   }
 
   .menu.active {
@@ -400,9 +401,10 @@ option {
   }
 
   #addFlatBtn, #seeFlatBtn, #updateInfoBtn, #favoritesBtn {
-    width: 500px;
+    width: 90%;
     height: 40px;
     font-size: 11px;
+    margin-right: 75px;
   }
 
   #deleteBtn, #favoriteBtn {

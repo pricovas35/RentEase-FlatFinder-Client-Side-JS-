@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Event listener for "Add Info" button
-  let addInfoBtn = document.getElementById('updateInfoBtn');
-  addInfoBtn.addEventListener('click', function () {
+  let updateInfoBtn = document.getElementById('updateInfoBtn');
+  updateInfoBtn.addEventListener('click', function () {
     document.getElementById('addFlat').style.display = 'none';
     document.getElementById('updateInfo').style.display = 'block';
     document.getElementById('flatsTable').style.display = 'none';
@@ -447,8 +447,8 @@ let closeMenu = () => {
 };
 
 // Event listeners for menu items
+let addFlatBtn = document.getElementById('addFlatBtn');
 addFlatBtn.addEventListener('click', function () {
-  console.log('addFlatBtn clicked');
   closeMenu(); // Close the menu when "Add Flat" is clicked
   document.getElementById('addFlat').style.display = 'block';
   document.getElementById('updateInfo').style.display = 'none';
@@ -456,6 +456,7 @@ addFlatBtn.addEventListener('click', function () {
   document.getElementById('favTable').style.display = 'none';
 });
 
+let seeFlatBtn = document.getElementById('seeFlatBtn');
 seeFlatBtn.addEventListener('click', function () {
   closeMenu(); // Close the menu when "See Flats" is clicked
   document.getElementById('addFlat').style.display = 'none';
@@ -465,6 +466,7 @@ seeFlatBtn.addEventListener('click', function () {
   // populateFlatsTable(); // Populate flats table
 });
 
+let updateInfoBtn = document.getElementById('updateInfoBtn');
 updateInfoBtn.addEventListener('click', function () {
   closeMenu(); // Close the menu when "Update Info" is clicked
   document.getElementById('addFlat').style.display = 'none';
@@ -473,6 +475,7 @@ updateInfoBtn.addEventListener('click', function () {
   document.getElementById('favTable').style.display = 'none';
 });
 
+let favoritesBtn = document.getElementById('favoritesBtn');
 favoritesBtn.addEventListener('click', function () {
   closeMenu(); // Close the menu when "Favorites" is clicked
   document.getElementById('addFlat').style.display = 'none';
