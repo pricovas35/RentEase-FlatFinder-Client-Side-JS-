@@ -180,7 +180,7 @@ a {
 
 
 #deleteBtn, #favoriteBtn {
-  width: 35px;
+  width: 25%;
   height: 20px;
   margin-top: 15px;
   background: #fff;
@@ -341,6 +341,11 @@ option {
     padding-left: 25px;
   }
 
+  #addBody, #favBody {
+    width: 100%;  
+    font-size: 8px;
+  }
+
 
   header img {
     width: 30px;
@@ -400,15 +405,23 @@ option {
     font-weight: 600;
   }
 
-  #addFlatBtn, #seeFlatBtn, #updateInfoBtn, #favoritesBtn {
+  #addFlatBurger, #seeFlatBurger, #updateInfoBurger, #favoritesBurger {
     width: 90%;
     height: 40px;
     font-size: 11px;
     margin-right: 75px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #333;
+    font-weight: 600;
   }
 
   #deleteBtn, #favoriteBtn {
-    width: 40px;
+    width: 50%;
     height: 20px;
     font-size: 10px;
   }

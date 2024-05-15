@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Populate the flats table
     let tableBody = document.getElementById('addBody');
     tableBody.style.textAlign = 'center';
-    tableBody.style.fontSize = "20px";
+    tableBody.style.fontSize = "16px";
     tableBody.innerHTML = ''; // Clear existing rows
 
     flats.forEach((flat, index) => {
@@ -211,15 +211,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 // Function to check if an email address exists in local storage
-function isEmailExists(email) {
+function isEmailExists(email,localstorage) {
   // Retrieve email addresses from local storage
-  let storedEmails = JSON.parse(localStorage.getItem('userData')) || [];
+  
 
   // Check if the provided email exists in the stored email addresses
-  return storedEmails.includes(email);
+  let result =false;
+  if(localstorage)
+    {
+      for(let user of localstorage)
+        {
+          if(user.email === email)
+            {
+              result=true;
+            }
+        }
+    }
+  return result;
 }
 
+document.getElementById("updateBtn").addEventListener('click', validateForm)
 function validateForm() {
+   
   let firstName = document.getElementById('first_name').value;
   let lastName = document.getElementById('last_name').value;
   let birthDate = document.getElementById('birth_date').value;
@@ -261,12 +274,13 @@ function validateForm() {
     toastr["error"]("Please enter a valid email address", "Error");
     return false;
   }
-
+  let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
+  let loggedUser= JSON.parse(localStorage.getItem('logedUser')) || [];
   // Example usage
-  let exists = isEmailExists(email);
+  let exists = isEmailExists(loggedUser.email,storedUsers);
 
   // Check if user data already exists in local storage
-  let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
+
 
   // Save user data to local storage
   let userData = {
@@ -287,27 +301,53 @@ function validateForm() {
   }
 
   return true; // Form is valid
+
 }
+
+
+
+
 
 function updateUserData(userDataToUpdate) {
   // Retrieve existing user data from local storage
   let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
+  let logedUser = JSON.parse(localStorage.getItem("logedUser")) || [];
 
   // Find the index of the user data to update
-  let indexToUpdate = storedUsers.findIndex(user => user.email === userDataToUpdate.email);
+  let indexToUpdate = storedUsers.findIndex(user => 
+    user.email === logedUser.email &&
+    user.firstName === logedUser.firstName &&
+    user.lastName === logedUser.lastName &&
+    user.username === logedUser.username &&
+    user.birthDate === logedUser.birthDate
+);
+  
 
   if (indexToUpdate !== -1) {
     // Update the user data
-    storedUsers[indexToUpdate] = userDataToUpdate;
+    storedUsers[indexToUpdate].email = userDataToUpdate.email;
+    storedUsers[indexToUpdate].firstName = userDataToUpdate.firstName;
+    storedUsers[indexToUpdate].lastName = userDataToUpdate.lastName;
+    storedUsers[indexToUpdate].username = userDataToUpdate.username;
+    storedUsers[indexToUpdate].birthDate = userDataToUpdate.birthDate;
 
     // Save the updated user data back to local storage
     localStorage.setItem("userData", JSON.stringify(storedUsers));
 
     toastr["success"]("Updated info successfully!");
+
+      // Logout the user after successful update
+    logoutUser();
   } else {
     // User not found in the stored data
     toastr["error"]("User data not found!", "Error");
   }
+}
+
+function logoutUser() {
+  // Clear the logged-in user's information from local storage
+  localStorage.removeItem('logedUser');
+  window.location = 'login.html';
 }
 
 
@@ -367,7 +407,7 @@ function updateUserData(userDataToUpdate) {
     let flats = users.find (user => user.email === dataUser.email).flats || [];
     let favoritesTableBody = document.getElementById('favBody');
     favoritesTableBody.style.textAlign = 'center';
-    favoritesTableBody.style.fontSize = "20px";
+    favoritesTableBody.style.fontSize = "16px";
     favoritesTableBody.innerHTML = ''; // Clear existing rows
     flats.forEach((flat, index) => {
       if (flat.favorite) { // Only add flats marked as favorites
@@ -446,9 +486,10 @@ let closeMenu = () => {
   menu.classList.remove('active');
 };
 
+
 // Event listeners for menu items
-let addFlatBtn = document.getElementById('addFlatBtn');
-addFlatBtn.addEventListener('click', function () {
+let addFlatBurger = document.getElementById('addFlatBurger');
+addFlatBurger.addEventListener('click', function () {
   closeMenu(); // Close the menu when "Add Flat" is clicked
   document.getElementById('addFlat').style.display = 'block';
   document.getElementById('updateInfo').style.display = 'none';
@@ -456,8 +497,8 @@ addFlatBtn.addEventListener('click', function () {
   document.getElementById('favTable').style.display = 'none';
 });
 
-let seeFlatBtn = document.getElementById('seeFlatBtn');
-seeFlatBtn.addEventListener('click', function () {
+let seeFlatBurger = document.getElementById('seeFlatBurger');
+seeFlatBurger.addEventListener('click', function () {
   closeMenu(); // Close the menu when "See Flats" is clicked
   document.getElementById('addFlat').style.display = 'none';
   document.getElementById('updateInfo').style.display = 'none';
@@ -466,8 +507,8 @@ seeFlatBtn.addEventListener('click', function () {
   // populateFlatsTable(); // Populate flats table
 });
 
-let updateInfoBtn = document.getElementById('updateInfoBtn');
-updateInfoBtn.addEventListener('click', function () {
+let updateInfoBurger = document.getElementById('updateInfoBurger');
+updateInfoBurger.addEventListener('click', function () {
   closeMenu(); // Close the menu when "Update Info" is clicked
   document.getElementById('addFlat').style.display = 'none';
   document.getElementById('updateInfo').style.display = 'block';
@@ -475,8 +516,8 @@ updateInfoBtn.addEventListener('click', function () {
   document.getElementById('favTable').style.display = 'none';
 });
 
-let favoritesBtn = document.getElementById('favoritesBtn');
-favoritesBtn.addEventListener('click', function () {
+let favoritesBurger = document.getElementById('favoritesBurger');
+favoritesBurger.addEventListener('click', function () {
   closeMenu(); // Close the menu when "Favorites" is clicked
   document.getElementById('addFlat').style.display = 'none';
   document.getElementById('updateInfo').style.display = 'none';
