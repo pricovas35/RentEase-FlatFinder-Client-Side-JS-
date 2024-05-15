@@ -230,6 +230,24 @@ function isEmailExists(email,localstorage) {
   return result;
 }
 
+
+function populateForm() {
+  let userData = JSON.parse(localStorage.getItem('userData')) || [];
+  if (userData && typeof userData === 'object') {
+    document.getElementById('first_name').value = userData.firstName;
+    document.getElementById('last_name').value = userData.lastName;
+    document.getElementById('user_name').value = userData.username;
+    document.getElementById('birth_date').value = userData.birthDate;
+    document.getElementById('email').value = userData.email;
+  }
+}
+
+window.onload = populateForm;
+
+
+
+
+
 document.getElementById("updateBtn").addEventListener('click', validateForm)
 function validateForm() {
    
@@ -303,9 +321,6 @@ function validateForm() {
   return true; // Form is valid
 
 }
-
-
-
 
 
 function updateUserData(userDataToUpdate) {

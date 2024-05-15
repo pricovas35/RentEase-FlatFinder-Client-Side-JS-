@@ -211,6 +211,7 @@ a {
   color: #fff;
   border-radius: 12px;
   padding: 30px 40px;
+  box-shadow: 1px 1px 10px hsl(0, 0%, 70%);
   animation: forwards zoomIn 0.5s ease;
 }
 
@@ -237,7 +238,15 @@ a {
   color: #fff;
   border-radius: 12px;
   padding: 30px 40px;
+  box-shadow: 1px 1px 10px hsl(0, 0%, 90%);
   animation: forwards zoomIn 0.5s ease;
+}
+
+td {
+  border-right: 2px solid black;
+}
+td:nth-child(1) {
+  border-left: 2px solid black;
 }
 
 th {
@@ -338,8 +347,8 @@ option {
   #flatsTable, #favTable {
     width: 100%;
     font-size: 8px;
-    padding-left: 25px;
   }
+
 
   #addBody, #favBody {
     width: 100%;  
