@@ -233,16 +233,21 @@ function isEmailExists(email,localstorage) {
 
 function populateForm() {
   let userData = JSON.parse(localStorage.getItem('userData')) || [];
-  if (userData && typeof userData === 'object') {
-    document.getElementById('first_name').value = userData.firstName;
-    document.getElementById('last_name').value = userData.lastName;
-    document.getElementById('user_name').value = userData.username;
-    document.getElementById('birth_date').value = userData.birthDate;
-    document.getElementById('email').value = userData.email;
+  let loggedUser = JSON.parse(localStorage.getItem('logedUser')) || [];
+  console.log(userData,loggedUser);
+
+
+  if (userData) {
+    let user = userData.find(x => x.email == loggedUser.email)
+    document.getElementById('first_name').value = user.firstName;
+    document.getElementById('last_name').value = user.lastName;
+    document.getElementById('user_name').value = user.username;
+    document.getElementById('birth_date').value = user.birthDate;
+    document.getElementById('email').value = user.email;
   }
 }
 
-window.onload = populateForm;
+window.onload = populateForm();
 
 
 
