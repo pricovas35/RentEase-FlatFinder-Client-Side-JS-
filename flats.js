@@ -517,6 +517,7 @@ addFlatBurger.addEventListener('click', function () {
   document.getElementById('updateInfo').style.display = 'none';
   document.getElementById('flatsTable').style.display = 'none';
   document.getElementById('favTable').style.display = 'none';
+  document.getElementById('about').style.display = 'none';
 });
 
 let seeFlatBurger = document.getElementById('seeFlatBurger');
@@ -526,6 +527,7 @@ seeFlatBurger.addEventListener('click', function () {
   document.getElementById('updateInfo').style.display = 'none';
   document.getElementById('flatsTable').style.display = 'block';
   document.getElementById('favTable').style.display = 'none';
+  document.getElementById('about').style.display = 'none';
   // populateFlatsTable(); // Populate flats table
 });
 
@@ -536,6 +538,7 @@ updateInfoBurger.addEventListener('click', function () {
   document.getElementById('updateInfo').style.display = 'block';
   document.getElementById('flatsTable').style.display = 'none';
   document.getElementById('favTable').style.display = 'none';
+  document.getElementById('about').style.display = 'none';
 });
 
 let favoritesBurger = document.getElementById('favoritesBurger');
@@ -545,6 +548,7 @@ favoritesBurger.addEventListener('click', function () {
   document.getElementById('updateInfo').style.display = 'none';
   document.getElementById('flatsTable').style.display = 'none';
   document.getElementById('favTable').style.display = 'block';
+  document.getElementById('about').style.display = 'none';
 });
 
 

@@ -35,7 +35,7 @@ img {
 
 #about {
   width: 50%;
-  margin-top: 100px;
+  margin-top: 120px;
   color: white;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .2);
@@ -248,8 +248,8 @@ a {
   font-weight: 600;
 }
 
-#flatsTable, #favTable {
-  width: 90%;
+#flatsTable {
+  width: 75%;
   background: transparent;
   backdrop-filter: blur(9px);
   color: #fff;
@@ -258,6 +258,18 @@ a {
   box-shadow: 1px 1px 10px hsl(0, 0%, 90%);
   animation: forwards zoomIn 0.5s ease;
 }
+
+#favTable {
+  width: 65%;
+  background: transparent;
+  backdrop-filter: blur(9px);
+  color: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 1px 1px 10px hsl(0, 0%, 90%);
+  animation: forwards zoomIn 0.5s ease;
+}
+
 
 td {
   border-right: 2px solid black;
@@ -338,12 +350,6 @@ option {
   cursor: pointer;
   font-size: 16px;
   color: #333;
-}
-
-audio {
-  position: relative;
-  left: 700px;
-  top: 220px;
 }
 
 
