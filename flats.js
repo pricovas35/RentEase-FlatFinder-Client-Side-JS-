@@ -203,6 +203,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // Hide the form after saving the flat
       document.getElementById('addFlat').style.display = 'none';
 
+      // Empties form after saving the flat
+      document.getElementById('addFlat').reset();
+
       // Show success message
       toastr.success('Flat added successfully');
 

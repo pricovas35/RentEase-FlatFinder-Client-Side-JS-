@@ -13,7 +13,7 @@ function validateForm() {
   let nameRegex = /^[a-zA-Z]{2,}$/;
   let userRegex = /^[a-zA-Z0-9]{3,}$/;
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/;
+  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{4,20}$/;
 
   // Birth date validation 
   let today = new Date();
