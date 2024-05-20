@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </td>
       `;
     });
-  }
+  };
 
   // Populate the flats table when the page loads
   populateFlatsTable();
@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('updateInfo').style.display = 'none';
     document.getElementById('flatsTable').style.display = 'none';
     document.getElementById('favTable').style.display = 'none';
+    document.getElementById('about').style.display = 'none';
   });
 
   let addFlat = document.getElementById('addFlat');
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('updateInfo').style.display = 'none';
     document.getElementById('flatsTable').style.display = 'block';
     document.getElementById('favTable').style.display = 'none';
+    document.getElementById('about').style.display = 'none';
 
     // Populate the flats table when "See Flats" button is clicked
     populateFlatsTable();
@@ -101,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('updateInfo').style.display = 'block';
     document.getElementById('flatsTable').style.display = 'none';
     document.getElementById('favTable').style.display = 'none';
+    document.getElementById('about').style.display = 'none';
   });
 
   // Event listener for "Favorites" button
@@ -110,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('updateInfo').style.display = 'none';
     document.getElementById('flatsTable').style.display = 'none';
     document.getElementById('favTable').style.display = 'block';
+    document.getElementById('about').style.display = 'none';
   });
 
 
@@ -215,7 +219,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to check if an email address exists in local storage
 function isEmailExists(email,localstorage) {
-  // Retrieve email addresses from local storage
   
 
   // Check if the provided email exists in the stored email addresses
@@ -234,11 +237,11 @@ function isEmailExists(email,localstorage) {
 }
 
 
+// Funtion to retrieve user data for changing data
+
 function populateForm() {
   let userData = JSON.parse(localStorage.getItem('userData')) || [];
   let loggedUser = JSON.parse(localStorage.getItem('logedUser')) || [];
-  console.log(userData,loggedUser);
-
 
   if (userData) {
     let user = userData.find(x => x.email == loggedUser.email)
@@ -253,9 +256,7 @@ function populateForm() {
 window.onload = populateForm();
 
 
-
-
-
+// Function to update user data
 document.getElementById("updateBtn").addEventListener('click', validateForm)
 function validateForm() {
    
@@ -305,9 +306,6 @@ function validateForm() {
   // Example usage
   let exists = isEmailExists(loggedUser.email,storedUsers);
 
-  // Check if user data already exists in local storage
-
-
   // Save user data to local storage
   let userData = {
     firstName: firstName,
@@ -327,7 +325,6 @@ function validateForm() {
   }
 
   return true; // Form is valid
-
 }
 
 
@@ -463,6 +460,8 @@ function logoutUser() {
     }
   });
 });
+
+
 
 
 

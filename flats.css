@@ -33,6 +33,22 @@ img {
   margin-top: 50px;
 }
 
+#about {
+  width: 50%;
+  margin-top: 100px;
+  color: white;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(9px);
+  color: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 1px 1px 10px hsl(0, 0%, 70%);
+  animation: forwards zoomIn 0.5s ease;
+}
+
+
+
 .btns {
   display: flex;
   align-items: center;
@@ -194,6 +210,7 @@ a {
   font-weight: 600;
 }
 
+
 #deleteBtn:hover, #favoriteBtn:hover {
   background-color: bisque;
 }
@@ -323,6 +340,12 @@ option {
   color: #333;
 }
 
+audio {
+  position: relative;
+  left: 700px;
+  top: 220px;
+}
+
 
 
 @keyframes zoomIn {
@@ -342,6 +365,10 @@ option {
   body {
     background-size: cover;
     background-position: center;
+  }
+
+  #about {
+    width: 100%;
   }
 
   #flatsTable, #favTable {
@@ -466,6 +493,10 @@ option {
   header img {
     width: 40px;
     margin-right: 70px;
+  }
+
+  #about {
+    width: 75%;
   }
 
   #flatsTable, #favTable {
