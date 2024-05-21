@@ -301,6 +301,15 @@ function validateForm() {
     toastr["error"]("Please enter a valid email address", "Error");
     return false;
   }
+
+
+   // Ask for confirmation before updating
+   let confirmUpdate = confirm("Do you really want to update your data?");
+   if (!confirmUpdate) {
+     return false; // If the user cancels, do not proceed
+   }
+
+
   let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
   let loggedUser= JSON.parse(localStorage.getItem('logedUser')) || [];
   // Example usage
