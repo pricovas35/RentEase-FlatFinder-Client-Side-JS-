@@ -367,7 +367,8 @@ option {
 
 
 /* Media Queries */
-/* Mobile devices (portrait and landscape) */
+
+/* Mobile devices */
 @media only screen and (max-width: 768px) {
   body {
     background-size: cover;

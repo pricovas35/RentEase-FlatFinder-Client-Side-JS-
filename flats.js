@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Example function to display a welcome message
+
   function displayWelcomeMessage() {
     let welcomeMessage = document.getElementById('welcome-message');
     let userData = JSON.parse(localStorage.getItem('logedUser'));
@@ -67,6 +68,21 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   displayWelcomeMessage();
+
+
+  // Function to confirm logout 
+
+  document.getElementById('logout').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Show confirmation dialog
+    let confirmed = confirm("Are you sure you want to log out?");
+    
+    // If the user confirms, redirect to the login page
+    if (confirmed) {
+      window.location.href = "login.html";
+    }
+  });
 
   // Event listener for "Add Flat" button
   let addFlatBtn = document.getElementById('addFlatBtn');
@@ -217,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
       populateFlatsTable();
     });
 
-// Function to check if an email address exists in local storage
-function isEmailExists(email,localstorage) {
+  // Function to check if an email address exists in local storage
+  function isEmailExists(email,localstorage) {
   
 
   // Check if the provided email exists in the stored email addresses
@@ -234,12 +250,12 @@ function isEmailExists(email,localstorage) {
         }
     }
   return result;
-}
+  }
 
 
-// Funtion to retrieve user data for changing data
+  // Funtion to retrieve user data for changing data
 
-function populateForm() {
+  function populateForm() {
   let userData = JSON.parse(localStorage.getItem('userData')) || [];
   let loggedUser = JSON.parse(localStorage.getItem('logedUser')) || [];
 
@@ -312,6 +328,7 @@ function validateForm() {
 
   let storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
   let loggedUser= JSON.parse(localStorage.getItem('logedUser')) || [];
+
   // Example usage
   let exists = isEmailExists(loggedUser.email,storedUsers);
 
@@ -471,11 +488,6 @@ function logoutUser() {
 });
 
 
-
-
-
-
-
  // Function for inactivity
 
  let inactivityTime = function () {
@@ -559,11 +571,6 @@ favoritesBurger.addEventListener('click', function () {
   document.getElementById('favTable').style.display = 'block';
   document.getElementById('about').style.display = 'none';
 });
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
   // Get the table element
